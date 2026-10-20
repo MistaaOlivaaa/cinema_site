@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Bazar | Rechercher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="site-header"></div>
+    <main class="container page-main">
+        <section class="page-intro">
+            <p class="eyebrow">La vidéothèque du village</p>
+            <h1>Rechercher un <span>film</span></h1>
+            <p>Un titre, un acteur, une envie : trouvez votre prochaine séance.</p>
+        </section>
+        <form id="search-form" class="search-box" role="search">
+            <label class="sr-only" for="search-input">Nom du film à rechercher</label>
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Rechercher un titre..." autocomplete="off">
+            <button class="button button--primary" type="submit">Rechercher</button>
+        </form>
+        <div id="search-status" class="status" aria-live="polite">Commencez à saisir un titre pour lancer la recherche.</div>
+        <div id="search-results" class="movie-grid"></div>
+        <button id="load-more-search" class="button button--outline load-more" type="button" hidden>Charger plus de résultats</button>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js?v=404-nav"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
