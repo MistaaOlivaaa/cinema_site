@@ -1,6 +1,6 @@
 
 window.MOVIES_CONFIG = {
-    apiKey: "",
+    apiKey: "27e10bd",
     featuredMovie: {
         Title: "Guardians of the Galaxy: Vol. 2",
         Year: "2017",
