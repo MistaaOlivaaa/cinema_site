@@ -1,12 +1,27 @@
 const homeGrid = document.querySelector("#trending-grid");
 const homeButton = document.querySelector("#load-more-home");
-let homeMovieCount = 6;
 
-function showHomeMovies() {
-    const movies = window.FALLBACK_MOVIES.slice(0, homeMovieCount);
-    homeGrid.innerHTML = movies.map(window.movieCard).join("");
+let page = 1;
 
-    if (homeMovieCount >= window.FALLBACK_MOVIES.length) {
+async function showHomeMovies() {
+    const API_KEY = "27e10bd";
+
+    const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=movie&y=2024&page=${page}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!data.Search) {
+        homeGrid.innerHTML += "<p>Aucun film trouvé pour 2024.</p>";
+        homeButton.hidden = true;
+        return;
+    }
+
+    // IMPORTANT : envoyer l'objet OMDb tel quel
+    data.Search.forEach(movie => {
+        homeGrid.innerHTML += window.movieCard(movie);
+    });
+
+    if (data.Search.length < 10) {
         homeButton.hidden = true;
     }
 }
@@ -14,8 +29,8 @@ function showHomeMovies() {
 if (homeGrid && homeButton) {
     showHomeMovies();
 
-    homeButton.addEventListener("click", function () {
-        homeMovieCount += 2;
+    homeButton.addEventListener("click", () => {
+        page++;
         showHomeMovies();
     });
 }
