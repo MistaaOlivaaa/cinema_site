@@ -17,11 +17,15 @@ async function showHomeMovies() {
     }
 
     // IMPORTANT : envoyer l'objet OMDb tel quel
-    data.Search.forEach(movie => {
+    const moviesWithPosters = data.Search.filter(movie => {
+        return movie.Poster && movie.Poster !== "N/A";
+    });
+
+    moviesWithPosters.forEach(movie => {
         homeGrid.innerHTML += window.movieCard(movie);
     });
 
-    if (data.Search.length < 10) {
+    if (data.Search.length < 10 || moviesWithPosters.length === 0) {
         homeButton.hidden = true;
     }
 }

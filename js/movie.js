@@ -2,7 +2,6 @@ const movieDetails = document.querySelector("#movie-details");
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
 
-
 function showMovie(movie) {
     document.title = `Movies Bazar | ${movie.Title}`;
 

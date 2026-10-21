@@ -82,6 +82,7 @@ cinemaa/
 │   └── trending.js     # Logique de la page Tendances
 └── img/
     ├── website.png     # Aperçu du site
+    ├── logo.png        # Logo du site
     ├── Group.svg       # Ressource graphique
     ├── Vector.svg      # Ressource graphique
     └── yyyy.svg        # Ressource graphique

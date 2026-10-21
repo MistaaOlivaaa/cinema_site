@@ -15,6 +15,8 @@ function movieLink(movie) {
 
 function createMovieCard(movie) {
     let poster = movie.Poster;
+    const description = movie.Plot
+        || `Découvrez ${movie.Title}, un film à ne pas manquer.`;
 
     if (!poster || poster === "N/A") {
         poster = noPoster;
@@ -23,7 +25,12 @@ function createMovieCard(movie) {
     return `
         <article class="movie-card">
             <a class="movie-card__poster" href="${movieLink(movie)}">
-                <img loading="lazy" src="${escapeText(poster)}" alt="Poster de ${escapeText(movie.Title)}">
+                <img
+                    loading="lazy"
+                    src="${escapeText(poster)}"
+                    alt="Poster de ${escapeText(movie.Title)}"
+                    onerror="this.closest('.movie-card').remove()"
+                >
             </a>
             <h3 title="${escapeText(movie.Title)}">${escapeText(movie.Title)}</h3>
             <div class="movie-card__meta">
@@ -31,6 +38,7 @@ function createMovieCard(movie) {
                 <span aria-hidden="true">•</span>
                 ${escapeText(movie.Runtime || "Film")}
             </div>
+            <p class="movie-card__plot">${escapeText(description)}</p>
             <a class="movie-card__link" href="${movieLink(movie)}">En savoir plus →</a>
         </article>
     `;
@@ -47,10 +55,10 @@ function createHeader() {
         <header class="site-header">
             <div class="container site-header__inner">
                 <a class="logo" href="index.html">
-                    <span class="logo-mark">✦</span>Movies Bazar
+                    <img src="img/logo.png" alt="Movies Bazar">
                 </a>
                 <nav class="nav" aria-label="Navigation principale">
-                    <a href="index.html">Accueil</a>
+                    <a href="index.html">Movies</a>
                     <a href="search.html">Search</a>
                     <a href="tendance.html">Tendances</a>
                     <a href="aide.html">Aide</a>
