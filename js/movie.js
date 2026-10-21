@@ -1,6 +1,7 @@
 const movieDetails = document.querySelector("#movie-details");
 const urlParams = new URLSearchParams(window.location.search);
-const movieId = urlParams.get("id") || "tt3896198";
+const movieId = urlParams.get("id");
+
 
 function showMovie(movie) {
     document.title = `Movies Bazar | ${movie.Title}`;
@@ -43,27 +44,22 @@ function showMovie(movie) {
     `;
 }
 
+
 async function loadMovie() {
-    let movie = await window.apiMovie(movieId);
+    try {
+        const movie = await window.apiMovie(movieId);
 
-    if (!movie) {
-        const featuredMovie = window.MOVIES_CONFIG.featuredMovie;
-        const localMovie = window.FALLBACK_MOVIES.find(function (item) {
-            return item.imdbID === movieId;
-        });
-
-        if (movieId === featuredMovie.imdbID) {
-            movie = featuredMovie;
-        } else {
-            movie = localMovie || window.FALLBACK_MOVIES[0];
+        // Si OMDb renvoie une erreur
+        if (!movie || movie.Response === "False") {
+            movieDetails.innerHTML = "<p>Film introuvable.</p>";
+            return;
         }
-    }
 
-    showMovie(movie);
-}
+        showMovie(movie);
 
-if (movieDetails) {
-    loadMovie().catch(function (error) {
+    } catch (error) {
         movieDetails.innerHTML = `<div class="status">${error.message}</div>`;
-    });
+    }
 }
+
+loadMovie();
